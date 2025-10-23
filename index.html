@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fashion Page</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      background-color: #FAF5E4; /* 옅은 베이지 */
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    h1 {
+      font-weight: 600;
+      font-size: 2.8rem;
+      margin-bottom: 30px;
+      color: #2c3e50;
+      letter-spacing: 1.5px;
+    }
+    form {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 50px;
+      width: 100%;
+      max-width: 420px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 14px 18px;
+      font-size: 1.1rem;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      color: #444;
+    }
+    input[type="text"]:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 8px rgba(0,123,255,0.5);
+    }
+    button {
+      padding: 14px 26px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,123,255,0.3);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+      box-shadow: 0 6px 15px rgba(0,86,179,0.5);
+    }
+    #image-result {
+      max-width: 600px;
+      width: 100%;
+      height: 350px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      margin-bottom: 70px;
+      background-color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #666;
+      text-align: center;
+      padding: 20px;
+      font-style: italic;
+    }
+    #image-result img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+    #gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      width: 100%;
+      max-width: 960px;
+      margin-bottom: 40px;
+    }
+    #gallery img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      background-color: #e0e0e0;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    #gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+    @media (max-width: 480px) {
+      form {
+        flex-direction: column;
+      }
+      button {
+        width: 100%;
+      }
+      #gallery {
+        grid-template-columns: repeat(1, 1fr);
+      }
+      #image-result {
+        height: 250px;
+      }
+      #gallery img {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Fashion Page</h1>
+  <form id="search-form" onsubmit="return false;">
+    <input type="text" id="search-input" placeholder="검색어를 입력하세요" aria-label="검색어 입력" />
+    <button id="search-btn" type="submit">검색</button>
+  </form>
+
+  <div id="image-result" aria-live="polite" aria-label="검색된 이미지 결과">
+    검색어를 입력하고 검색 버튼을 눌러 이미지를 불러오세요.
+  </div>
+
+  <section id="gallery" aria-label="기본 이미지 갤러리">
+    <!-- 9개 기본 이미지 자리 -->
+    <img src="https://source.unsplash.com/random/300x180?fashion" alt="패션 이미지 1" />
+    <img src="https://source.unsplash.com/random/300x180?fashion,style" alt="패션 이미지 2" />
+    <img src="https://source.unsplash.com/random/300x180?fashion,clothes" alt="패션 이미지 3" />
+    <img src="https://source.unsplash.com/random/300x180?fashion,model" alt="패션 이미지 4" />
+    <img src="https://source.unsplash.com/random/300x180?fashion,runway" alt="패션 이미지 5" />
+    <img src="https://source.unsplash.com/random/300x180?fashion,design" alt="패션 이미지 6" />
+    <img src="https://source.unsplash.com/random/300x180?fashion,outfit" alt="패션 이미지 7" />
+    <img src="https://source.unsplash.com/random/300x180?fashion,clothing" alt="패션 이미지 8" />
+    <img src="https://source.unsplash.com/random/300x180?fashion,trend" alt="패션 이미지 9" />
+  </section>
+
+  <script>
+    const form = document.getElementById('search-form');
+    const input = document.getElementById('search-input');
+    const imageResult = document.getElementById('image-result');
+
+    form.addEventListener('submit', () => {
+      const query = input.value.trim();
+      if (!query) {
+        alert('검색어를 입력해주세요.');
+        return;
+      }
+      const url = `https://source.unsplash.com/600x350/?${encodeURIComponent(query)}`;
+      imageResult.innerHTML = `<img src="${url}" alt="${query} 이미지" />`;
+    });
+  </script>
+</body>
+</html>
